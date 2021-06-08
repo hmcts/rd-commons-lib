@@ -1,0 +1,224 @@
+buildscript {
+    ext {
+        springBootVersion = '2.3.4.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.11")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5"
+    }
+}
+
+plugins {
+    id 'application'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'com.github.ben-manes.versions' version '0.20.0'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.owasp.dependencycheck' version '5.3.0'
+    id 'org.sonarqube' version '2.8'
+    id 'maven-publish'
+    id 'uk.gov.hmcts.java' version '0.12.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'net.serenity-bdd.aggregator'
+apply plugin: 'project-report'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: "com.jfrog.bintray"
+
+def versions = [
+        lombok             : '1.18.6',
+        reformLogging      : '5.1.0',
+        reformS2sClient    : '3.1.2',
+        serenity           : '2.0.23',
+        springBoot         : '2.3.4.RELEASE'
+]
+
+mainClassName = 'uk.gov.hmcts.reform.*'
+def jarName = 'rd-commons-lib.jar'
+def gitRepo = "https://github.com/hmcts/rd-commons-lib"
+
+def pomConfig = {
+    licenses {
+        license {
+            name "MIT License"
+            url "http://www.opensource.org/licenses/mit-license.php"
+            distribution "repo"
+        }
+    }
+
+    scm {
+        url "https://github.com/hmcts/rd-commons-lib"
+    }
+}
+
+def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "DEV-SNAPSHOT"
+
+group = 'uk.gov.hmcts.reform'
+version = buildNumber
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    getArchiveClassifier().set('sources')
+    from sourceSets.main.allSource
+}
+
+
+artifacts {
+    archives sourcesJar
+    //archives javadocJar
+}
+
+publishing {
+    publications {
+        Main(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            //artifact javadocJar
+            groupId project.group
+            artifactId 'rd-commons-lib'
+            version project.version
+
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'Idam client')
+                root.appendNode('name', 'Idam client')
+                root.appendNode('url', gitRepo)
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    publications = ['Main']
+    publish = true
+    pkg {
+        repo = 'hmcts-maven'
+        name = 'rd-commons-lib'
+        userOrg = 'hmcts'
+        licenses = ['MIT']
+        vcsUrl = gitRepo
+        version {
+            name = project.version
+        }
+    }
+}
+
+compileJava {
+    options.compilerArgs << '-parameters' << '-Xlint:deprecation' << "-Xlint:unchecked" << "-Werror"
+}
+
+compileTestJava {
+    options.compilerArgs << '-Xlint:deprecation' << "-Xlint:unchecked" << "-Werror"
+}
+
+sourceSets {
+}
+
+idea {
+    module {
+    }
+}
+
+configurations {
+
+}
+check.dependsOn jacocoTestCoverageVerification
+
+jacoco {
+    toolVersion = "0.8.5"
+}
+
+jacocoTestReport {
+    executionData(test)
+    reports {
+        xml.enabled = true
+        csv.enabled = false
+        xml.destination = file("${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+    }
+}
+
+
+repositories {
+
+    maven {
+        url "https://dl.bintray.com/hmcts/hmcts-maven"
+    }
+
+    jcenter()
+}
+
+dependencies {
+    compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-json', version: versions.springBoot
+    compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.5.6'
+    compile (group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.2') {
+        force = true
+    }
+    compile (group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.1') {
+        force = true
+    }
+
+    compile group: 'uk.gov.hmcts.reform', name: 'logging', version: versions.reformLogging
+    compile group: 'uk.gov.hmcts.reform', name: 'logging-appinsights', version: versions.reformLogging
+    compile group: 'uk.gov.hmcts.reform', name: 'properties-volume-spring-boot-starter', version: '0.1.0'
+    compile group: 'com.google.guava', name: 'guava', version: '28.2-jre'
+    compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+    compile group: 'uk.gov.hmcts.reform', name: 'idam-client', version: '1.5.5'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+
+    testCompile("org.hamcrest:hamcrest-junit:2.0.0.0") {
+        exclude group: "org.hamcrest", module: "hamcrest-core"
+        exclude group: "org.hamcrest", module: "hamcrest-library"
+    }
+    testCompile "com.github.tomakehurst:wiremock:2.19.0"
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.2.4'
+    testCompile group: 'org.mockito', name: 'mockito-inline', version: '3.1.0'
+    testCompile group: 'org.powermock', name: 'powermock-api-mockito2', version: '2.0.4'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springBoot
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: versions.springBoot
+
+
+    testCompile(group: 'org.yaml', name: 'snakeyaml', version: '1.23') {
+        force = true
+    }
+}
+
+dependencyCheck {
+    suppressionFile = 'config/owasp/suppressions.xml'
+}
+
+gradle.startParameter.continueOnFailure = true
+
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+
+// this is required to force Java running on the Azure Windows Server OS into using
+// UTF-8 as the default character set instead of windows-1252 which causes issues.
+// this setting only applies when running via gradle bootRun -- see web.config for the
+// java flag that configures the deployed applications
+applicationDefaultJvmArgs = ["-Dfile.encoding=UTF-8"]
