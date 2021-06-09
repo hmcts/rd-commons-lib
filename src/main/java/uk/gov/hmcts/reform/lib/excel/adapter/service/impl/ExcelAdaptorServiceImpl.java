@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import uk.gov.hmcts.reform.lib.excel.adapter.service.ExcelAdapterService;
 import uk.gov.hmcts.reform.lib.exception.ExcelValidationException;
 import uk.gov.hmcts.reform.lib.util.MappingField;
 import uk.gov.hmcts.reform.lib.validator.service.IValidationService;
@@ -47,12 +48,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 @SuppressWarnings("unchecked")
-public class ExcelAdaptorServiceImpl {
-    @Value("${excel.acceptableHeaders.buildings}")
-    private List<String> acceptableHeaders;
-
-    @Value("${excel.acceptableServiceRoleMappingHeaders}")
-    private List<String> acceptableServiceRoleMappingHeaders;
+public class ExcelAdaptorServiceImpl implements ExcelAdapterService {
 
     @Value("${loggingComponentName}")
     private String loggingComponentName;
@@ -63,9 +59,10 @@ public class ExcelAdaptorServiceImpl {
     IValidationService validationServiceFacade;
 
 
-    public <T> List<T> parseExcel(Workbook workbook, Class<T> classType, Sheet sheet, List<String> validHeaders) {
+    public <T> List<T> parseExcel(Workbook workbook, String sheetName, List<String> validHeaders, Class<T> classType) {
         evaluator = workbook.getCreationHelper().createFormulaEvaluator();
 
+        Sheet sheet = workbook.getSheet(sheetName);
         if (Objects.isNull(sheet)) {
             throw new ExcelValidationException(HttpStatus.BAD_REQUEST, FILE_NO_VALID_SHEET_ERROR_MESSAGE);
         } else if (sheet.getPhysicalNumberOfRows() < 2) { // check at least 1 row

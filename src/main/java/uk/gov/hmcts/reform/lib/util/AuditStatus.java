@@ -1,7 +1,7 @@
 package uk.gov.hmcts.reform.lib.util;
 
 public enum AuditStatus {
-    N_PROGRESS("InProgress"),
+    IN_PROGRESS("InProgress"),
     FAILURE("Failure"),
     PARTIAL_SUCCESS("Partial Success"),
     SUCCESS("Success");
