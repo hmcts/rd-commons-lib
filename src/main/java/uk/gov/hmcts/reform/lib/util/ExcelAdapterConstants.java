@@ -39,6 +39,7 @@ public final class ExcelAdapterConstants {
     public static final String RECORDS_FAILED = "%s record(s) failed";
     public static final String SPACE = " ";
     public static final String AND = "and";
+    public static final String REQUEST_COMPLETED_SUCCESSFULLY = "Request Completed Successfully";
 
 
 }
