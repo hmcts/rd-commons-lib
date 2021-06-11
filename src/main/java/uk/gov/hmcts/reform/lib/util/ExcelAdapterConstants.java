@@ -14,7 +14,7 @@ public final class ExcelAdapterConstants {
     public static final String FILE_PASSWORD_PROTECTED_ERROR_MESSAGE =
             "The file is password protected. Please provide a file without password.";
     public static final String FILE_NO_VALID_SHEET_ERROR_MESSAGE = "The uploaded file does not "
-            + "contain the ‘Staff data’ worksheet.";
+            + "contain the worksheet.";
     public static final String ERROR_FILE_PARSING_ERROR_MESSAGE = "Error while parsing ";
     public static final String INVALID_EXCEL_FILE_ERROR_MESSAGE = "Excel File is invalid";
     public static final String ERROR_PARSING_EXCEL_FILE_ERROR_MESSAGE = "Excel File is invalid";
