@@ -5,11 +5,10 @@ buildscript {
     repositories {
         jcenter()
         mavenCentral()
+        mavenLocal()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5"
-
     }
 }
 
@@ -27,7 +26,6 @@ apply plugin: 'java'
 apply plugin: 'project-report'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
-apply plugin: "com.jfrog.bintray"
 
 def versions = [
         lombok             : '1.18.6',
@@ -81,31 +79,6 @@ publishing {
             groupId project.group
             artifactId 'rd-commons-lib'
             version project.version
-
-            pom.withXml {
-                def root = asNode()
-                root.appendNode('description', 'Idam client')
-                root.appendNode('name', 'Idam client')
-                root.appendNode('url', gitRepo)
-                root.children().last() + pomConfig
-            }
-        }
-    }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    publications = ['Main']
-    publish = true
-    pkg {
-        repo = 'hmcts-maven'
-        name = 'data-commons-lib'
-        userOrg = 'hmcts'
-        licenses = ['MIT']
-        vcsUrl = gitRepo
-        version {
-            name = project.version
         }
     }
 }
@@ -146,9 +119,6 @@ jacocoTestReport {
 
 
 repositories {
-    maven {
-        url "https://dl.bintray.com/hmcts/hmcts-maven"
-    }
     jcenter()
 }
 
@@ -216,3 +186,7 @@ jar {
 // this setting only applies when running via gradle bootRun -- see web.config for the
 // java flag that configures the deployed applications
 applicationDefaultJvmArgs = ["-Dfile.encoding=UTF-8"]
+
+test {
+    useJUnitPlatform()
+}
