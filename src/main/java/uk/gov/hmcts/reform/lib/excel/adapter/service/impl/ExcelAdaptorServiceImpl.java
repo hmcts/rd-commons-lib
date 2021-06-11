@@ -8,6 +8,8 @@ import static java.util.Objects.nonNull;
 import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang.BooleanUtils.isNotTrue;
+import static org.apache.poi.ss.usermodel.DateUtil.getLocalDateTime;
+import static org.apache.poi.ss.usermodel.DateUtil.isCellDateFormatted;
 import static org.springframework.core.annotation.AnnotationUtils.findAnnotation;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.util.ReflectionUtils.makeAccessible;
@@ -266,8 +268,13 @@ public class ExcelAdaptorServiceImpl implements ExcelAdapterService {
         switch (cell.getCellType()) {
             case STRING:
                 return cell.getStringCellValue().trim();
-            case NUMERIC:
-                return Integer.valueOf((int) cell.getNumericCellValue());
+            case NUMERIC: {
+                if (isCellDateFormatted(cell)) {
+                    return getLocalDateTime(cell.getNumericCellValue());
+                } else {
+                    return Integer.valueOf((int) cell.getNumericCellValue());
+                }
+            }
             case FORMULA:
                 return getValueFromFormula(cell);
             default:
