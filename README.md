@@ -5,7 +5,7 @@ rd-commons-lib is reusable common library for excel file upload functionality do
 2) Auditing the file upload activity 
 3) Exception logging in table
 
-This library has been published in bin tray with git push actions on new release (https://bintray.com/hmcts/hmcts-maven/rd-commons-lib).
+This library has been published on Git hub workflow https://github.com/hmcts/rd-commons-lib/actions
 
 # To build the project in local execute the following command
 ./gradlew build 
