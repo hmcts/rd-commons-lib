@@ -3,7 +3,6 @@ buildscript {
         springBootVersion = '2.3.4.RELEASE'
     }
     repositories {
-        mavenLocal()
         mavenCentral()
     }
     dependencies {
@@ -152,7 +151,6 @@ jacocoTestReport {
 
 repositories {
 
-    mavenLocal()
     maven {
         url "https://dl.bintray.com/hmcts/hmcts-maven"
     }
