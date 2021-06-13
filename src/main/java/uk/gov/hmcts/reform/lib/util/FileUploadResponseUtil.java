@@ -16,9 +16,9 @@ import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.RECORDS_UPLOADE
 import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.REQUEST_COMPLETED_SUCCESSFULLY;
 import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.REQUEST_FAILED_FILE_UPLOAD_JSR;
 
-import uk.gov.hmcts.reform.lib.audit.domain.CommonExceptionEntity;
-import uk.gov.hmcts.reform.lib.audit.domain.CommonFileUploadResponse;
-import uk.gov.hmcts.reform.lib.audit.domain.JsrFileErrors;
+import uk.gov.hmcts.reform.lib.domain.CommonExceptionEntity;
+import uk.gov.hmcts.reform.lib.domain.CommonFileUploadResponse;
+import uk.gov.hmcts.reform.lib.domain.JsrFileErrors;
 
 public class FileUploadResponseUtil {
 

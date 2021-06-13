@@ -2,7 +2,7 @@ package uk.gov.hmcts.reform.lib.validator.service;
 
 import java.util.List;
 
-import uk.gov.hmcts.reform.lib.audit.domain.RowDomain;
+import uk.gov.hmcts.reform.lib.domain.RowDomain;
 import uk.gov.hmcts.reform.lib.util.AuditStatus;
 
 public interface IValidationService {

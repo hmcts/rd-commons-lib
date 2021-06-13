@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.audit.domain;
+package uk.gov.hmcts.reform.lib.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

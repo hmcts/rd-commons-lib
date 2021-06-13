@@ -7,7 +7,7 @@ import static java.util.Arrays.stream;
 import static java.util.Objects.nonNull;
 import static org.springframework.core.annotation.AnnotationUtils.findAnnotation;
 
-import uk.gov.hmcts.reform.lib.audit.domain.RowDomain;
+import uk.gov.hmcts.reform.lib.domain.RowDomain;
 
 public class RdCommonsUtil {
 
@@ -19,7 +19,7 @@ public class RdCommonsUtil {
      *
      * @param field reflection field
      * @param domain domain
-     * @return
+     * @return field value
      */
     public static String getKeyFieldValue(Field field, RowDomain domain) {
         try {
