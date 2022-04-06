@@ -30,11 +30,12 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 def versions = [
-        lombok             : '1.18.6',
-        reformLogging      : '5.1.0',
-        springBoot         : '2.3.4.RELEASE',
+        lombok             : '1.18.20',
+        reformLogging      : '5.1.9',
         serenity           : '2.0.76',
-        springHystrix      : '2.2.8.RELEASE'
+        springBoot         : '2.4.12',
+        springHystrix      : '2.2.8.RELEASE',
+        log4j              : '2.17.1'
 ]
 
 mainClassName = 'uk.gov.hmcts.reform.*'
