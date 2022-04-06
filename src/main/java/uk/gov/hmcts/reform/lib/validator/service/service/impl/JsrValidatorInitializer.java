@@ -1,7 +1,6 @@
 package uk.gov.hmcts.reform.lib.validator.service.service.impl;
 
-import static net.logstash.logback.encoder.org.apache.commons.lang3.BooleanUtils.isNotTrue;
-
+import static org.apache.commons.lang3.BooleanUtils.isNotTrue;
 import javax.annotation.PostConstruct;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
