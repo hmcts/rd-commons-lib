@@ -33,7 +33,7 @@ apply plugin: 'org.springframework.boot'
 def versions = [
         lombok             : '1.18.6',
         reformLogging      : '5.1.0',
-        springBoot         : '2.4.12',
+        springBoot         : '2.3.4.RELEASE',
         serenity           : '2.0.76'
 ]
 
