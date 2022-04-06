@@ -3,10 +3,9 @@ buildscript {
         springBootVersion = '2.3.4.RELEASE'
     }
     repositories {
-        mavenLocal()
         jcenter()
         mavenCentral()
-
+        mavenLocal()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
