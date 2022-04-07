@@ -26,9 +26,9 @@ plugins {
 }
 
 apply plugin: 'java'
-apply plugin: 'net.serenity-bdd.aggregator'
 apply plugin: 'project-report'
 apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
 apply plugin: 'org.springframework.boot'
 
 def versions = [
