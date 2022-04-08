@@ -7,6 +7,7 @@ import net.thucydides.core.annotations.Pending;
 import net.thucydides.core.model.TestResult;
 import net.thucydides.core.model.TestTag;
 import net.thucydides.core.steps.StepEventBus;
+import net.thucydides.core.steps.TestSourceType;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -18,8 +19,7 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
-import static net.thucydides.core.steps.StepEventBus.getEventBus;
-import static net.thucydides.core.steps.TestSourceType.TEST_SOURCE_JUNIT;
+
 
 public class SerenityJUnitLifecycleAdapterExtension implements BeforeEachCallback, AfterAllCallback, TestWatcher,
     LifecycleMethodExecutionExceptionHandler {
@@ -46,23 +46,23 @@ public class SerenityJUnitLifecycleAdapterExtension implements BeforeEachCallbac
     @Override
     public void testDisabled(ExtensionContext extensionContext, Optional<String> reason) {
         beforeEach(extensionContext);
-        getEventBus().testIgnored();
+        StepEventBus.getEventBus().testIgnored();
         notifyTestFinished();
     }
 
     @Override
     public void testAborted(final ExtensionContext extensionContext, final Throwable cause) {
         if (cause instanceof PendingException) {
-            getEventBus().testPending();
+            StepEventBus.getEventBus().testPending();
         } else {
-            getEventBus().assumptionViolated(cause.getMessage());
+            StepEventBus.getEventBus().assumptionViolated(cause.getMessage());
         }
         notifyTestFinished();
     }
 
     @Override
     public void testFailed(final ExtensionContext extensionContext, final Throwable cause) {
-        getEventBus().testFailed(cause);
+        StepEventBus.getEventBus().testFailed(cause);
         notifyTestFinished();
     }
 
@@ -80,16 +80,16 @@ public class SerenityJUnitLifecycleAdapterExtension implements BeforeEachCallbac
 
     private void notifyTestStarted(final ExtensionContext extensionContext, final String name) {
         startTestSuiteForFirstTest(extensionContext);
-        getEventBus().clear();
-        getEventBus().setTestSource(TEST_SOURCE_JUNIT.getValue());
-        getEventBus().testStarted(name, extensionContext.getRequiredTestClass());
-        getEventBus().addTagsToCurrentTest(extensionContext.getTags().stream().map(TestTag::withValue)
+        StepEventBus.getEventBus().clear();
+        StepEventBus.getEventBus().setTestSource(TestSourceType.TEST_SOURCE_JUNIT.getValue());
+        StepEventBus.getEventBus().testStarted(name, extensionContext.getRequiredTestClass());
+        StepEventBus.getEventBus().addTagsToCurrentTest(extensionContext.getTags().stream().map(TestTag::withValue)
                                                .collect(toList()));
     }
 
     private void startTestSuiteForFirstTest(ExtensionContext extensionContext) {
-        if (!getEventBus().testSuiteHasStarted()) {
-            getEventBus().testSuiteStarted(extensionContext.getRequiredTestClass());
+        if (!StepEventBus.getEventBus().testSuiteHasStarted()) {
+            StepEventBus.getEventBus().testSuiteStarted(extensionContext.getRequiredTestClass());
         }
     }
 
@@ -103,7 +103,7 @@ public class SerenityJUnitLifecycleAdapterExtension implements BeforeEachCallbac
 
 
     private void notifyTestFinished() {
-        getEventBus().testFinished();
+        StepEventBus.getEventBus().testFinished();
     }
 
     private static class PendingException extends TestAbortedException {

@@ -1,6 +1,7 @@
 package uk.gov.hmcts.reform.lib.serenity5.extension;
 
 import com.google.inject.Key;
+import net.serenitybdd.core.environment.ConfiguredEnvironment;
 import net.serenitybdd.core.injectors.EnvironmentDependencyInjector;
 import net.thucydides.core.steps.BaseStepListener;
 import net.thucydides.core.steps.Listeners;
@@ -13,14 +14,13 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import uk.gov.hmcts.reform.lib.serenity5.counter.TestCounter;
 import uk.gov.hmcts.reform.lib.serenity5.guice.JUnitInjectors;
 
-import static net.serenitybdd.core.environment.ConfiguredEnvironment.getConfiguration;
-import static net.thucydides.core.steps.StepEventBus.getEventBus;
+
 
 public class SerenityExtension implements BeforeAllCallback, AfterAllCallback, BeforeEachCallback {
 
     @Override
     public void beforeAll(final ExtensionContext extensionContext) {
-        getEventBus().clear();
+        StepEventBus.getEventBus().clear();
 
         registerListenersOnEventBus(
             createBaseStepListener(),
@@ -39,12 +39,13 @@ public class SerenityExtension implements BeforeAllCallback, AfterAllCallback, B
     }
 
     private BaseStepListener createBaseStepListener() {
-        return Listeners.getBaseStepListener().withOutputDirectory(getConfiguration().getOutputDirectory());
+        return Listeners.getBaseStepListener().withOutputDirectory(ConfiguredEnvironment.getConfiguration()
+            .getOutputDirectory());
     }
 
     private void registerListenersOnEventBus(final StepListener... stepListeners) {
         for (StepListener currentStepListener : stepListeners) {
-            getEventBus().registerListener(currentStepListener);
+            StepEventBus.getEventBus().registerListener(currentStepListener);
         }
     }
 

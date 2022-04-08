@@ -1,7 +1,9 @@
 package uk.gov.hmcts.reform.lib.serenity5.extension;
 
 import net.thucydides.core.steps.BaseStepListener;
+import net.thucydides.core.steps.StepAnnotations;
 import net.thucydides.core.steps.StepEventBus;
+import net.thucydides.core.steps.StepFactory;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.InvocationInterceptor;
@@ -10,15 +12,13 @@ import org.opentest4j.TestAbortedException;
 
 import java.lang.reflect.Method;
 
-import static net.thucydides.core.steps.StepAnnotations.injector;
-import static net.thucydides.core.steps.StepEventBus.getEventBus;
-import static net.thucydides.core.steps.StepFactory.getFactory;
+
 
 public class SerenityStepExtension implements BeforeEachCallback, InvocationInterceptor {
 
     @Override
     public void beforeEach(final ExtensionContext context) {
-        injector().injectScenarioStepsInto(context.getRequiredTestInstance(), getFactory());
+        StepAnnotations.injector().injectScenarioStepsInto(context.getRequiredTestInstance(), StepFactory.getFactory());
     }
 
     @Override
@@ -38,7 +38,7 @@ public class SerenityStepExtension implements BeforeEachCallback, InvocationInte
     }
 
     private boolean noStepInTheCurrentTestHasFailed() {
-        return !getEventBus().aStepInTheCurrentTestHasFailed();
+        return !StepEventBus.getEventBus().aStepInTheCurrentTestHasFailed();
     }
 
     private void throwStepFailures(final ExtensionContext extensionContext) throws Throwable {
@@ -49,14 +49,14 @@ public class SerenityStepExtension implements BeforeEachCallback, InvocationInte
     }
 
     private void throwStepAssumptionViolations(final ExtensionContext extensionContext) {
-        final StepEventBus eventBus = getEventBus();
+        final StepEventBus eventBus = StepEventBus.getEventBus();
         if (eventBus.assumptionViolated()) {
             throw new TestAbortedException(eventBus.getAssumptionViolatedMessage());
         }
     }
 
     private BaseStepListener baseStepListener() {
-        return getEventBus().getBaseStepListener();
+        return StepEventBus.getEventBus().getBaseStepListener();
     }
 
 }

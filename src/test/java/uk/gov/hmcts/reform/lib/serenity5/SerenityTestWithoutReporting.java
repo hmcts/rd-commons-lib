@@ -9,10 +9,10 @@ import java.lang.annotation.Target;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import uk.gov.hmcts.reform.lib.serenity5.extension.SerenityExtension;
-import uk.gov.hmcts.reform.lib.serenity5.extension.SerenityJUnitLifecycleAdapterExtension;
-import uk.gov.hmcts.reform.lib.serenity5.extension.SerenityManualExtension;
 import uk.gov.hmcts.reform.lib.serenity5.extension.SerenityStepExtension;
 import uk.gov.hmcts.reform.lib.serenity5.extension.page.SerenityPageExtension;
+import uk.gov.hmcts.reform.lib.serenity5.extension.SerenityJUnitLifecycleAdapterExtension;
+import uk.gov.hmcts.reform.lib.serenity5.extension.SerenityManualExtension;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

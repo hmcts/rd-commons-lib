@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.thucydides.core.annotations.Manual;
 import net.thucydides.core.annotations.ManualTestMarkedAsError;
 import net.thucydides.core.annotations.ManualTestMarkedAsFailure;
+import net.thucydides.core.model.TestResult;
 import net.thucydides.core.steps.StepEventBus;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.InvocationInterceptor;
@@ -11,8 +12,7 @@ import org.junit.jupiter.api.extension.ReflectiveInvocationContext;
 
 import java.lang.reflect.Method;
 
-import static net.thucydides.core.model.TestResult.FAILURE;
-import static net.thucydides.core.steps.StepEventBus.getEventBus;
+
 
 @Slf4j
 public class SerenityManualExtension implements InvocationInterceptor {
@@ -29,7 +29,7 @@ public class SerenityManualExtension implements InvocationInterceptor {
             } catch (Exception e) {
                 log.error("Exception during test execution on @Manual test will be ignored.", e);
             }
-            markAsManual(testMethod.getAnnotation(Manual.class), getEventBus());
+            markAsManual(testMethod.getAnnotation(Manual.class), StepEventBus.getEventBus());
         } else {
             invocation.proceed();
         }
@@ -42,7 +42,7 @@ public class SerenityManualExtension implements InvocationInterceptor {
         eventBus.getBaseStepListener().latestTestOutcome().ifPresent(
             outcome -> {
                 outcome.setResult(manualAnnotation.result());
-                if (manualAnnotation.result() == FAILURE) {
+                if (manualAnnotation.result() == TestResult.FAILURE) {
                     outcome.setTestFailureMessage(manualReasonDeclaredIn(manualAnnotation));
                 }
             }
