@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.serenity5.extension;
+package uk.gov.hmcts.reform.lib.util.serenity5.extension;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -6,7 +6,6 @@ import net.thucydides.core.annotations.Manual;
 import net.thucydides.core.annotations.Pending;
 import net.thucydides.core.model.TestResult;
 import net.thucydides.core.model.TestTag;
-import net.thucydides.core.steps.StepEventBus;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -35,7 +34,7 @@ public class SerenityJUnitLifecycleAdapterExtension implements BeforeEachCallbac
     }
 
     public void afterAll(final ExtensionContext extensionContext) {
-        StepEventBus.getEventBus().testSuiteFinished();
+        getEventBus().testSuiteFinished();
     }
 
     @Override

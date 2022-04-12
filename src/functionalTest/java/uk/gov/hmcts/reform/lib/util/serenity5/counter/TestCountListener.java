@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.serenity5.counter;
+package uk.gov.hmcts.reform.lib.util.serenity5.counter;
 
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.ThucydidesSystemProperty;
