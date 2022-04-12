@@ -25,7 +25,7 @@ plugins {
     id 'uk.gov.hmcts.java' version '0.12.2'
 }
 
-apply plugin: 'java-library'
+apply plugin: 'java'
 apply plugin: 'project-report'
 apply plugin: 'idea'
 apply plugin: 'net.serenity-bdd.aggregator'
@@ -221,29 +221,7 @@ dependencies {
     implementation group: 'org.junit.platform', name: 'junit-platform-commons', version: versions.junitPlatform
     implementation group: 'org.junit.platform', name: 'junit-platform-engine', version: versions.junitPlatform
     implementation group: 'com.jhlabs', name: 'filters', version: '2.0.235-1'
-    // https://mvnrepository.com/artifact/org.apache.pdfbox/xmpbox
-    implementation group: 'org.apache.pdfbox', name: 'xmpbox', version: '2.0.25'
-    // https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
-    implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '3.0.0-RC1'
-    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
-    implementation group: 'org.codehaus.groovy', name: 'groovy', version: '3.0.10'
-    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-xml
-    implementation group: 'org.codehaus.groovy', name: 'groovy-xml', version: '3.0.10'
 
-    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-json
-    implementation group: 'org.codehaus.groovy', name: 'groovy-json', version: '3.0.10'
-
-    // https://mvnrepository.com/artifact/com.ibm.icu/icu4j
-    implementation group: 'com.ibm.icu', name: 'icu4j', version: '71.1'
-    // https://mvnrepository.com/artifact/junit/junit
-    implementation group: 'junit', name: 'junit', version: '4.13.2'
-    // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
-    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: '1.6.20'
-    // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib-common
-    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-common', version: '1.6.20'
-// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-opera-driver
-
-    // https://mvnrepository.com/artifact/io.github.x-stream/mxparser
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: versions.log4j
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: versions.log4j
     implementation group: 'org.apache.logging.log4j', name: 'log4j', version: versions.log4j
