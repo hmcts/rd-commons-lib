@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.serenity5.extension;
+package uk.gov.hmcts.reform.lib.util.serenity5.extension;
 
 import net.serenitybdd.core.environment.ConfiguredEnvironment;
 import net.thucydides.core.model.TestOutcome;

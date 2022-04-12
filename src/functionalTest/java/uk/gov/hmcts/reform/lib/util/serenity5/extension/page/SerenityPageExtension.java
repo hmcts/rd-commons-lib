@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.serenity5.extension.page;
+package uk.gov.hmcts.reform.lib.util.serenity5.extension.page;
 
 import net.serenitybdd.core.environment.WebDriverConfiguredEnvironment;
 import net.thucydides.core.annotations.ClearCookiesPolicy;

@@ -98,6 +98,33 @@ compileTestJava {
 }
 
 sourceSets {
+
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integrationTest/java')
+        }
+        resources.srcDir file('src/integrationTest/resources')
+    }
+
+    functionalTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/functionalTest/java')
+        }
+        resources.srcDir file('src/functionalTest/resources')
+    }
+
+    smokeTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/smokeTest/java')
+        }
+        resources.srcDir file('src/smokeTest/resources')
+    }
 }
 
 idea {
@@ -134,27 +161,32 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json', version: versions.springBoot
-    implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.5.6'
-    implementation (group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.2') {
-        force = true
-    }
+    compileOnly group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    compileOnly group: 'org.springframework.boot', name: 'spring-boot-starter-json', version: versions.springBoot
+    compileOnly group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.5.6'
+
     implementation (group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.1') {
         force = true
     }
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.2.1'
 
 
     implementation group: 'com.google.guava', name: 'guava', version: '28.2-jre'
     implementation group: 'commons-lang', name: 'commons-lang', version: '2.6'
-    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
-
+    implementation group: 'org.springframework', name: 'spring-core', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-beans', version: '5.3.18'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testCompileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    integrationTestCompileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    integrationTestAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    functionalTestCompileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    functionalTestAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    smokeTestCompileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+    smokeTestAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 
     testImplementation("org.hamcrest:hamcrest-junit:2.0.0.0") {
         exclude group: "org.hamcrest", module: "hamcrest-core"
@@ -174,16 +206,21 @@ dependencies {
 
 
     //Required dependancies
-    compileOnly group: 'net.serenity-bdd', name: 'serenity-core', version: '3.0.2'
-    compileOnly group: 'net.serenity-bdd', name: 'serenity-spring', version: '3.0.2'
-    compileOnly group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity
+    testImplementation group: 'net.serenity-bdd', name: 'serenity-core', version: '3.2.3'
+    testImplementation group: 'net.serenity-bdd', name: 'serenity-spring', version: '3.2.3'
+    testImplementation group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity
+
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '6.0.0.Final', ext: 'pom'
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+    implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.6.2'
 
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versions.junit
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: versions.junit
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: versions.junit
     implementation group: 'org.junit.platform', name: 'junit-platform-commons', version: versions.junitPlatform
     implementation group: 'org.junit.platform', name: 'junit-platform-engine', version: versions.junitPlatform
-
+    implementation group: 'com.jhlabs', name: 'filters', version: '2.0.235-1'
 
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: versions.log4j
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: versions.log4j
@@ -198,13 +235,56 @@ dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.0.2'
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-hystrix', version: versions.springHystrix// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.1'
+    // https://mvnrepository.com/artifact/org.springframework/spring-context
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.18'
 
+    implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.10'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
 
+    implementation group: 'org.springframework', name: 'spring-aop', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-aspects', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-expression', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-jcl', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-web', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.18'
+    implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.21'
+    // https://mvnrepository.com/artifact/org.springframework/spring-test
+   implementation group: 'org.springframework', name: 'spring-test', version: '5.3.18'
+
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation "io.github.openfeign:feign-httpclient:11.0"
+
+    implementation group: 'com.google.guava', name: 'guava', version: '30.1-jre'
 
     implementation group: 'io.github.openfeign.form', name: 'feign-form', version: '3.8.0'
     implementation group: 'io.github.openfeign.form', name: 'feign-form-spring', version: '3.8.0'
 
+    functionalTestImplementation(group: 'org.yaml', name: 'snakeyaml', version: '1.23') {
+        force = true
+    }
+
+    functionalTestImplementation sourceSets.main.runtimeClasspath
+    functionalTestImplementation sourceSets.test.runtimeClasspath
+
 }
+
+dependencyManagement {
+
+    dependencies {
+        // CVE-2021-42340
+        dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.58') {
+            entry 'tomcat-embed-core'
+            entry 'tomcat-embed-el'
+            entry 'tomcat-embed-websocket'
+        }
+    }
+}
+
 
 dependencyCheck {
     suppressionFile = 'config/owasp/suppressions.xml'

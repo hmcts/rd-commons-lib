@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.serenity5.guice;
+package uk.gov.hmcts.reform.lib.util.serenity5.guice;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
