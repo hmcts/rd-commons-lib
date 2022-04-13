@@ -170,7 +170,6 @@ dependencies {
     }
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.2.1'
 
-
     implementation group: 'com.google.guava', name: 'guava', version: '28.2-jre'
     implementation group: 'commons-lang', name: 'commons-lang', version: '2.6'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
@@ -192,7 +191,7 @@ dependencies {
         exclude group: "org.hamcrest", module: "hamcrest-core"
         exclude group: "org.hamcrest", module: "hamcrest-library"
     }
-    testImplementation "com.github.tomakehurst:wiremock:2.19.0"
+
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.2.4'
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.1.0'
     testImplementation group: 'org.powermock', name: 'powermock-api-mockito2', version: '2.0.4'
@@ -229,12 +228,18 @@ dependencies {
         exclude group: "io.cucumber", module: "tag-expressions"
         exclude group: "org.apache.pdfbox", module: "xmpbox"
         exclude group: "net.serenity-bdd", module: "serenity-report-resources"
+        exclude group: 'junit', module: 'junit'
     }
 
     implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: '1.6.20'
     implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-common', version: '1.6.20'
     implementation (group: 'net.serenity-bdd', name: 'serenity-spring', version: '3.2.3'){
         exclude group: "org.codehaus.groovy", module: "groovy"
+        exclude group: 'io.cucumber', module: 'messages'
+        exclude group: 'junit', module: 'junit'
+        exclude group: "io.cucumber", module: "tag-expressions"
+        exclude group: "org.seleniumhq.selenium", module: "selenium-opera-driver"
+        exclude group: "net.serenity-bdd", module: "serenity-report-resources"
 
     }
     implementation (group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity) {
@@ -242,6 +247,12 @@ dependencies {
         exclude group: "org.codehaus.groovy", module: "groovy"
         exclude group: "org.codehaus.groovy", module: "groovy-json"
         exclude group: "org.codehaus.groovy", module: "groovy-xml"
+        exclude group: 'io.cucumber', module: 'messages'
+        exclude group: 'junit', module: 'junit'
+        exclude group: "io.cucumber", module: "tag-expressions"
+        exclude group: "org.seleniumhq.selenium", module: "selenium-opera-driver"
+        exclude group: "net.serenity-bdd", module: "serenity-report-resources"
+        exclude group: "org.apache.sling", module: "org.apache.sling.javax.activation"
 
     }
 
