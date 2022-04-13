@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.util.serenity5.extension;
+package serenity.extension;
 
 import com.google.inject.Key;
 import net.serenitybdd.core.injectors.EnvironmentDependencyInjector;
@@ -9,8 +9,8 @@ import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import uk.gov.hmcts.reform.lib.util.serenity5.counter.TestCounter;
-import uk.gov.hmcts.reform.lib.util.serenity5.guice.JUnitInjectors;
+import serenity.guice.JUnitInjectors;
+import serenity.counter.TestCounter;
 
 import static net.serenitybdd.core.environment.ConfiguredEnvironment.getConfiguration;
 import static net.thucydides.core.steps.StepEventBus.getEventBus;

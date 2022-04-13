@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.util.serenity5;
+package serenity;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -8,11 +8,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.junit.jupiter.api.extension.ExtendWith;
-import uk.gov.hmcts.reform.lib.util.serenity5.extension.SerenityExtension;
-import uk.gov.hmcts.reform.lib.util.serenity5.extension.SerenityJUnitLifecycleAdapterExtension;
-import uk.gov.hmcts.reform.lib.util.serenity5.extension.SerenityManualExtension;
-import uk.gov.hmcts.reform.lib.util.serenity5.extension.SerenityStepExtension;
-import uk.gov.hmcts.reform.lib.util.serenity5.extension.page.SerenityPageExtension;
+import serenity.extension.SerenityManualExtension;
+import serenity.extension.page.SerenityPageExtension;
+import serenity.extension.SerenityExtension;
+import serenity.extension.SerenityJUnitLifecycleAdapterExtension;
+import serenity.extension.SerenityStepExtension;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

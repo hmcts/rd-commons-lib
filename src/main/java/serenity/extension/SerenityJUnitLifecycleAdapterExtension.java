@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.util.serenity5.extension;
+package serenity.extension;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;

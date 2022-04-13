@@ -25,7 +25,7 @@ plugins {
     id 'uk.gov.hmcts.java' version '0.12.2'
 }
 
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'project-report'
 apply plugin: 'idea'
 apply plugin: 'net.serenity-bdd.aggregator'
@@ -203,12 +203,47 @@ dependencies {
     testImplementation(group: 'org.yaml', name: 'snakeyaml', version: '1.23') {
         force = true
     }
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json', version: versions.springBoot
+    implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.5.6'
 
 
-    //Required dependancies
-    testImplementation group: 'net.serenity-bdd', name: 'serenity-core', version: '3.2.3'
-    testImplementation group: 'net.serenity-bdd', name: 'serenity-spring', version: '3.2.3'
-    testImplementation group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity
+    //testImplementation group: 'net.serenity-bdd', name: 'serenity-core', version: '3.2.3'
+    implementation(group: 'net.serenity-bdd', name: 'serenity-core', version: '3.2.3'){
+        exclude group: "com.github.docker-java", module: "docker-java-api"
+        exclude group: "com.github.docker-java", module: "docker-java-core"
+        exclude group: "com.github.docker-java", module: "docker-java-transport"
+        exclude group: "com.github.docker-java", module: "docker-java-transport-httpclient5"
+        exclude group: "com.vladsch.flexmark", module: "flexmark-ext-jekyll-tag"
+        exclude group: "com.vladsch.flexmark", module: "flexmark-ext-xwiki-macros"
+        exclude group: "org.codehaus.groovy", module: "groovy"
+        exclude group: "com.ibm.icu", module: "icu4j"
+        //exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib"
+        //exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib-common"
+        exclude group: "com.fasterxml.jackson.core", module: "jackson-databind"
+        exclude group: "io.github.x-stream", module: "mxparser"
+        exclude group: "com.openhtmltopdf", module: "openhtmltopdf-jsoup-dom-converter"
+        exclude group: "org.apache.pdfbox", module: "pdfbox"
+        exclude group: "org.seleniumhq.selenium", module: "selenium-opera-driver"
+        exclude group: 'io.cucumber', module: 'messages'
+        exclude group: "io.cucumber", module: "tag-expressions"
+        exclude group: "org.apache.pdfbox", module: "xmpbox"
+        exclude group: "net.serenity-bdd", module: "serenity-report-resources"
+    }
+
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: '1.6.20'
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-common', version: '1.6.20'
+    implementation (group: 'net.serenity-bdd', name: 'serenity-spring', version: '3.2.3'){
+        exclude group: "org.codehaus.groovy", module: "groovy"
+
+    }
+    implementation (group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity) {
+        exclude group: "net.serenity-bdd", module: "serenity-report-resources"
+        exclude group: "org.codehaus.groovy", module: "groovy"
+        exclude group: "org.codehaus.groovy", module: "groovy-json"
+        exclude group: "org.codehaus.groovy", module: "groovy-xml"
+
+    }
 
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
     implementation group: 'org.hibernate', name: 'hibernate-core', version: '6.0.0.Final', ext: 'pom'

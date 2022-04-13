@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.util.serenity5.guice;
+package serenity.guice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provider;
@@ -7,8 +7,8 @@ import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.statistics.TestCount;
 import net.thucydides.core.steps.StepListener;
 import net.thucydides.core.util.EnvironmentVariables;
-import uk.gov.hmcts.reform.lib.util.serenity5.counter.TestCountListener;
-import uk.gov.hmcts.reform.lib.util.serenity5.counter.TestCounter;
+import serenity.counter.TestCountListener;
+import serenity.counter.TestCounter;
 
 
 public class JUnit5Module extends AbstractModule {

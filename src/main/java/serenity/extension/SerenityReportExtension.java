@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.util.serenity5.extension;
+package serenity.extension;
 
 import net.serenitybdd.core.environment.ConfiguredEnvironment;
 import net.thucydides.core.model.TestOutcome;
@@ -6,10 +6,10 @@ import net.thucydides.core.reports.AcceptanceTestReporter;
 import net.thucydides.core.reports.ReportService;
 import net.thucydides.core.steps.BaseStepListener;
 import net.thucydides.core.steps.StepEventBus;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
+import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;

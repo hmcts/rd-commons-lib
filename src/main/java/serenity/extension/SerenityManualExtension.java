@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.util.serenity5.extension;
+package serenity.extension;
 
 import lombok.extern.slf4j.Slf4j;
 import net.thucydides.core.annotations.Manual;

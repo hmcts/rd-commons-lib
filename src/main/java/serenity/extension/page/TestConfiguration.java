@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.util.serenity5.extension.page;
+package serenity.extension.page;
 
 import net.thucydides.core.annotations.TestCaseAnnotations;
 import net.thucydides.core.webdriver.Configuration;
