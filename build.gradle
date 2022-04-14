@@ -25,7 +25,7 @@ plugins {
     id 'uk.gov.hmcts.java' version '0.12.2'
 }
 
-apply plugin: 'java-library'
+apply plugin: 'java'
 apply plugin: 'project-report'
 apply plugin: 'idea'
 apply plugin: 'net.serenity-bdd.aggregator'
