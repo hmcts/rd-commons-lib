@@ -11,13 +11,4 @@
         <packageUrl regex="true">^pkg:maven/org\.apache\.poi.*$</packageUrl>
         <cve>CVE-2022-26336</cve>
     </suppress>
-    <suppress>
-        <notes><![CDATA[file name: serenity-core-**.jar]]></notes>
-        <filePath regex="true">.*\**</filePath>
-        <cve>CVE-2012-6708</cve>
-        <cve>CVE-2015-9251</cve>
-        <cve>CVE-2019-11358</cve>
-        <cve>CVE-2020-11022</cve>
-        <cve>CVE-2020-11023</cve>
-    </suppress>
 </suppressions>
