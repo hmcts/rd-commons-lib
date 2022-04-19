@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.util.serenity5.extension;
+package serenity.extension;
 
 import net.thucydides.core.steps.BaseStepListener;
 import net.thucydides.core.steps.StepEventBus;

@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.lib.util.serenity5.counter;
+package serenity.counter;
 
 import com.google.inject.BindingAnnotation;
 

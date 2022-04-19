@@ -170,7 +170,6 @@ dependencies {
     }
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.2.1'
 
-
     implementation group: 'com.google.guava', name: 'guava', version: '28.2-jre'
     implementation group: 'commons-lang', name: 'commons-lang', version: '2.6'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
@@ -192,7 +191,7 @@ dependencies {
         exclude group: "org.hamcrest", module: "hamcrest-core"
         exclude group: "org.hamcrest", module: "hamcrest-library"
     }
-    testImplementation "com.github.tomakehurst:wiremock:2.19.0"
+
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.2.4'
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.1.0'
     testImplementation group: 'org.powermock', name: 'powermock-api-mockito2', version: '2.0.4'
@@ -203,12 +202,17 @@ dependencies {
     testImplementation(group: 'org.yaml', name: 'snakeyaml', version: '1.23') {
         force = true
     }
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json', version: versions.springBoot
+    implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.5.6'
 
 
-    //Required dependancies
-    testImplementation group: 'net.serenity-bdd', name: 'serenity-core', version: '3.2.3'
-    testImplementation group: 'net.serenity-bdd', name: 'serenity-spring', version: '3.2.3'
-    testImplementation group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity
+    implementation(group: 'net.serenity-bdd', name: 'serenity-core', version: '3.2.3')
+
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: '1.6.20'
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-common', version: '1.6.20'
+    implementation (group: 'net.serenity-bdd', name: 'serenity-spring', version: '3.2.3')
+    implementation (group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity)
 
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
     implementation group: 'org.hibernate', name: 'hibernate-core', version: '6.0.0.Final', ext: 'pom'

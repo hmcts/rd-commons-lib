@@ -18,7 +18,6 @@ import java.util.function.Consumer;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
-import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.initializeFieldsIn;
 
 public class SerenityPageExtension implements BeforeEachCallback {
 
@@ -28,7 +27,7 @@ public class SerenityPageExtension implements BeforeEachCallback {
             .withSystemConfiguration(WebDriverConfiguredEnvironment.getDriverConfiguration());
         if (testConfiguration.isAWebTest()) {
             applyTestClassOrTestMethodSpecificWebDriverConfiguration(extensionContext);
-            initializeFieldsIn(extensionContext.getRequiredTestInstance());
+            ThucydidesWebDriverSupport.initializeFieldsIn(extensionContext.getRequiredTestInstance());
             injectPageObjectIntoTest(extensionContext.getRequiredTestInstance());
 
             prepareBrowserForTest(extensionContext);

@@ -7,8 +7,9 @@ import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.statistics.TestCount;
 import net.thucydides.core.steps.StepListener;
 import net.thucydides.core.util.EnvironmentVariables;
-import uk.gov.hmcts.reform.lib.util.serenity5.counter.TestCountListener;
-import uk.gov.hmcts.reform.lib.util.serenity5.counter.TestCounter;
+import net.thucydides.junit.listeners.TestCountListener;
+import net.thucydides.junit.listeners.TestCounter;
+
 
 
 public class JUnit5Module extends AbstractModule {
