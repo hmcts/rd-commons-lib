@@ -261,7 +261,7 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.21'
     // https://mvnrepository.com/artifact/org.springframework/spring-test
    implementation group: 'org.springframework', name: 'spring-test', version: '5.3.18'
-
+    testImplementation 'com.github.hmcts:fortify-client:1.2.0:all'
     implementation 'commons-io:commons-io:2.11.0'
     implementation "io.github.openfeign:feign-httpclient:11.0"
 
