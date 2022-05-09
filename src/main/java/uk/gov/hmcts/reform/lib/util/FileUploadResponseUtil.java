@@ -59,7 +59,7 @@ public class FileUploadResponseUtil {
             return fileUploadResponseBuilder.message(REQUEST_FAILED_FILE_UPLOAD_JSR)
                 .detailedMessage(detailedMessage).errorDetails(jsrFileErrors).build();
         } else {
-            StringJoiner detailedMessage = new StringJoiner(SPACE + AND + SPACE);
+            StringJoiner detailedMessage = new StringJoiner(" " + AND + " ");
             //get the uploaded records excluding suspended records
             int noOfUploadedRecords = totalRecords;
 
@@ -78,7 +78,7 @@ public class FileUploadResponseUtil {
         //get the uploaded records excluding failed records
         int uploadedRecords = totalRecords - failedRecordsCount;
         if (uploadedRecords > 0) {
-            detailedMessage = format(RECORDS_FAILED, failedRecordsCount) + SPACE + AND + SPACE
+            detailedMessage = format(RECORDS_FAILED, failedRecordsCount) + " " + AND + " "
                 .concat(format(RECORDS_UPLOADED, uploadedRecords));
         }
         return detailedMessage;
