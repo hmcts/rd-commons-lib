@@ -20,4 +20,3 @@ compile group: 'uk.gov.hmcts.reform', name: 'rd-commons-lib', version: '0.0.1'
 
 
 
-
