@@ -174,8 +174,8 @@ dependencies {
     implementation group: 'com.google.guava', name: 'guava', version: '28.2-jre'
     implementation group: 'commons-lang', name: 'commons-lang', version: '2.6'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
-    implementation group: 'org.springframework', name: 'spring-core', version: '5.3.18'
-    implementation group: 'org.springframework', name: 'spring-beans', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-core', version: '5.3.22'
+    implementation group: 'org.springframework', name: 'spring-beans', version: '5.3.22'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
@@ -241,25 +241,25 @@ dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-hystrix', version: versions.springHystrix// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.1'
     // https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.22'
 
     implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.10'
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
 
-    implementation group: 'org.springframework', name: 'spring-aop', version: '5.3.18'
-    implementation group: 'org.springframework', name: 'spring-aspects', version: '5.3.18'
-    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.18'
-    implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.18'
-    implementation group: 'org.springframework', name: 'spring-expression', version: '5.3.18'
-    implementation group: 'org.springframework', name: 'spring-jcl', version: '5.3.18'
-    implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.18'
-    implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.18'
-    implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.18'
-    implementation group: 'org.springframework', name: 'spring-web', version: '5.3.18'
-    implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-aop', version: '5.3.22'
+    implementation group: 'org.springframework', name: 'spring-aspects', version: '5.3.22'
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.22'
+    implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.22'
+    implementation group: 'org.springframework', name: 'spring-expression', version: '5.3.22'
+    implementation group: 'org.springframework', name: 'spring-jcl', version: '5.3.22'
+    implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.3.22'
+    implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.22'
+    implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.22'
+    implementation group: 'org.springframework', name: 'spring-web', version: '5.3.22'
+    implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.22'
     implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.21'
     // https://mvnrepository.com/artifact/org.springframework/spring-test
-   implementation group: 'org.springframework', name: 'spring-test', version: '5.3.18'
+   implementation group: 'org.springframework', name: 'spring-test', version: '5.3.22'
     testImplementation 'com.github.hmcts:fortify-client:1.2.0:all'
     implementation 'commons-io:commons-io:2.11.0'
     implementation "io.github.openfeign:feign-httpclient:11.0"
