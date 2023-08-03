@@ -280,6 +280,12 @@ dependencies {
 
 }
 
+configurations.all {
+    exclude group: 'org.apache.groovy', module: 'groovy-json'
+    exclude group: 'org.apache.groovy', module: 'groovy'
+    exclude group: 'org.apache.groovy', module: 'groovy-xml'
+}
+
 dependencyManagement {
 
     dependencies {
