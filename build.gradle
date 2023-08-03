@@ -247,6 +247,7 @@ dependencies {
 
     implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.10'
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
+    implementation group: 'com.google.inject', name: 'guice', version: '7.0.0'
 
     implementation group: 'org.springframework', name: 'spring-aop', version: versions.springVersion
     implementation group: 'org.springframework', name: 'spring-aspects', version: versions.springVersion

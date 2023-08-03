@@ -3,7 +3,6 @@ package uk.gov.hmcts.reform.lib.util.serenity5.guice;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.statistics.TestCount;
 import net.thucydides.core.steps.StepListener;
 import net.thucydides.core.util.EnvironmentVariables;
@@ -25,9 +24,9 @@ public class JUnit5Module extends AbstractModule {
     public static class TestCountListenerProvider implements Provider<StepListener> {
 
         public StepListener get() {
-            EnvironmentVariables environmentVariables = Injectors.getInjector()
+            EnvironmentVariables environmentVariables = JUnitInjectors.getInjector()
                 .getProvider(EnvironmentVariables.class).get();
-            TestCount testCount = Injectors.getInjector().getInstance(TestCount.class);
+            TestCount testCount = JUnitInjectors.getInjector().getInstance(TestCount.class);
             return new TestCountListener(environmentVariables, testCount);
         }
     }
