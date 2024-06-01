@@ -22,7 +22,7 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.20.0'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'maven-publish'
-    id 'uk.gov.hmcts.java' version '0.12.2'
+    id 'uk.gov.hmcts.java' version '0.12.63'
 }
 
 apply plugin: 'java'
