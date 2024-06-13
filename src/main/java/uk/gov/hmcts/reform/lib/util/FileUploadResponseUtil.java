@@ -8,6 +8,7 @@ import java.util.StringJoiner;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.groupingBy;
+import static org.apache.commons.lang3.StringUtils.SPACE;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
 import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.AND;
 import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.RECORDS_FAILED;
