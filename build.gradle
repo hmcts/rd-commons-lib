@@ -235,9 +235,6 @@ dependencies {
     implementation group: 'org.apache.logging.log4j', name: 'log4j', version: versions.log4j
     implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: versions.log4j
 
-    implementation ('com.github.hmcts:properties-volume-spring-boot-starter:0.1.0') {
-        exclude group: 'org.glassfish', module: 'jakarta.el'
-    }
     implementation 'com.github.hmcts:idam-java-client:2.0.1'
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.0.2'
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-hystrix', version: versions.springHystrix// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign
