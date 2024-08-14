@@ -39,7 +39,7 @@ def versions = [
         springHystrix      : '2.2.8.RELEASE',
         log4j              : '2.17.1',
         launchDarklySdk    : '5.2.2',
-        springVersion      : '5.3.18',
+        springVersion      : '5.3.39',
         feign              : '3.8.0'
 ]
 
@@ -240,7 +240,7 @@ dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-hystrix', version: versions.springHystrix// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.1'
     // https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.18'
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.39'
 
     implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.10'
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
@@ -258,7 +258,7 @@ dependencies {
     implementation group: 'org.springframework', name: 'spring-webmvc', version: versions.springVersion
     implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.21'
     // https://mvnrepository.com/artifact/org.springframework/spring-test
-   implementation group: 'org.springframework', name: 'spring-test', version: '5.3.18'
+   implementation group: 'org.springframework', name: 'spring-test', version: '5.3.39'
     testImplementation 'com.github.hmcts:fortify-client:1.2.0:all'
     implementation 'commons-io:commons-io:2.11.0'
     implementation "io.github.openfeign:feign-httpclient:11.0"
