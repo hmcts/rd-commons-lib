@@ -1,10 +1,10 @@
 package uk.gov.hmcts.reform.lib.util.serenity5.extension;
 
 import lombok.extern.slf4j.Slf4j;
-import net.thucydides.core.annotations.Manual;
+import net.serenitybdd.annotations.Manual;
 import net.thucydides.core.annotations.ManualTestMarkedAsError;
 import net.thucydides.core.annotations.ManualTestMarkedAsFailure;
-import net.thucydides.core.model.TestResult;
+import net.thucydides.model.domain.TestResult;
 import net.thucydides.core.steps.StepEventBus;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.InvocationInterceptor;
