@@ -1,7 +1,7 @@
 package uk.gov.hmcts.reform.lib.util.serenity5.extension.page;
 
 import net.serenitybdd.core.environment.WebDriverConfiguredEnvironment;
-import net.thucydides.core.annotations.ClearCookiesPolicy;
+import net.serenitybdd.annotations.ClearCookiesPolicy;
 import net.thucydides.core.annotations.ManagedWebDriverAnnotatedField;
 import net.thucydides.core.steps.PageObjectDependencyInjector;
 import net.thucydides.core.webdriver.ThucydidesWebDriverSupport;

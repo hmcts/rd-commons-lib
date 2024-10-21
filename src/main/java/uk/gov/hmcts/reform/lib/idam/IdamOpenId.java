@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import static java.util.Objects.isNull;
-import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
+import static org.apache.commons.lang3.RandomStringUtils.secure;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
@@ -180,7 +180,7 @@ public class IdamOpenId {
     }
 
     public static String generateRandomEmail() {
-        return String.format(EMAIL_TEMPLATE, randomAlphanumeric(10)).toLowerCase();
+        return String.format(EMAIL_TEMPLATE, secure().nextAlphanumeric(10)).toLowerCase();
     }
 
     public static void setEmailsTobeDeleted(String emailTobeDeleted) {

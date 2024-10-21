@@ -1,49 +1,27 @@
-buildscript {
-    ext {
-        springBootVersion = '2.3.4.RELEASE'
-    }
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven {
-            url "https://jitpack.io"
-        }
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("net.serenity-bdd:serenity-gradle-plugin:2.4.34")
-    }
-}
-
 plugins {
     id 'application'
+    id 'project-report'
     id 'checkstyle'
     id 'jacoco'
-    id 'com.github.ben-manes.versions' version '0.20.0'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'idea'
+    id 'com.github.ben-manes.versions' version '0.51.0'
+    id 'io.spring.dependency-management' version '1.1.6'
+    id 'org.springframework.boot' version '3.3.6'
     id 'maven-publish'
-    id 'uk.gov.hmcts.java' version '0.12.2'
+    id 'uk.gov.hmcts.java' version '0.12.63'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.2.8'
 }
 
-apply plugin: 'java'
-apply plugin: 'project-report'
-apply plugin: 'idea'
-apply plugin: 'net.serenity-bdd.aggregator'
-apply plugin: 'org.springframework.boot'
-
 def versions = [
-        lombok             : '1.18.20',
-        reformLogging      : '5.1.9',
-        serenity           : '2.0.76',
-        springBoot         : '2.4.12',
-        springHystrix      : '2.2.8.RELEASE',
-        log4j              : '2.17.1',
+        junit              : '5.11.3',
+        junitPlatform      : '1.11.3',
         launchDarklySdk    : '5.2.2',
-        springVersion      : '5.3.18',
-        feign              : '3.8.0'
+        log4j              : '2.24.2',
+        logback            : '1.5.12',
+        lombok             : '1.18.36',
+        serenity           : '4.2.9'
 ]
 
-mainClassName = 'uk.gov.hmcts.reform.*'
 def jarName = 'rd-commons-lib.jar'
 def gitRepo = "https://github.com/hmcts/rd-commons-lib"
 
@@ -66,9 +44,17 @@ def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?:
 group = 'uk.gov.hmcts.reform'
 version = buildNumber
 
+application {
+    // this is required to force Java running on the Azure Windows Server OS into using
+    // UTF-8 as the default character set instead of windows-1252 which causes issues.
+    // this setting only applies when running via gradle bootRun -- see web.config for the
+    // java flag that configures the deployed applications
+    applicationDefaultJvmArgs = ["-Dfile.encoding=UTF-8"]
+}
 
-
-task sourcesJar(type: Jar, dependsOn: classes) {
+tasks.register('sourcesJar', Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    dependsOn classes
     getArchiveClassifier().set('sources')
     from sourceSets.main.allSource
 }
@@ -81,7 +67,7 @@ artifacts {
 
 publishing {
     publications {
-        Main(MavenPublication) {
+        maven(MavenPublication) {
             from components.java
             artifact sourcesJar
             //artifact javadocJar
@@ -130,26 +116,14 @@ sourceSets {
     }
 }
 
-idea {
-    module {
-    }
-}
-
-configurations {
-
-}
 check.dependsOn jacocoTestCoverageVerification
-
-jacoco {
-    toolVersion = "0.8.5"
-}
 
 jacocoTestReport {
     executionData(test)
     reports {
-        xml.enabled = true
-        csv.enabled = false
-        xml.destination = file("${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+        xml.required = true
+        csv.required = false
+        xml.outputLocation = file("${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml")
     }
 }
 
@@ -164,20 +138,42 @@ repositories {
 }
 
 dependencies {
-    compileOnly group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
-    compileOnly group: 'org.springframework.boot', name: 'spring-boot-starter-json', version: versions.springBoot
-    compileOnly group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.5.6'
 
-    implementation (group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.1') {
-        force = true
-    }
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.2.1'
-
-    implementation group: 'com.google.guava', name: 'guava', version: '28.2-jre'
-    implementation group: 'commons-lang', name: 'commons-lang', version: '2.6'
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
-    implementation group: 'org.springframework', name: 'spring-core', version: versions.springVersion
-    implementation group: 'org.springframework', name: 'spring-beans', version: versions.springVersion
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: versions.logback
+    implementation group: 'ch.qos.logback', name: 'logback-core', version: versions.logback
+    implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '3.1.8'
+    implementation group: 'com.github.hmcts', name: 'idam-java-client', version: '3.0.3'
+    implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.2.0'
+    implementation group: 'com.github.mifmif', name: 'generex', version: '1.0.2'
+    implementation group: 'com.google.guava', name: 'guava', version: '33.3.1-jre'
+    implementation group: 'com.google.inject', name: 'guice', version: '7.0.0'
+    implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: versions.launchDarklySdk
+    implementation group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.18.0'
+    implementation group: 'io.github.openfeign', name: 'feign-httpclient', version: '13.5'
+    implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.1.0'
+    implementation group: 'net.serenity-bdd', name: 'serenity-core', version: versions.serenity
+    implementation group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity
+    implementation group: 'net.serenity-bdd', name: 'serenity-spring', version: versions.serenity
+    implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.27.1'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.17.0'
+    implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.4.1'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: versions.log4j
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: versions.log4j
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: versions.log4j
+    implementation group: 'org.apache.logging.log4j', name: 'log4j', version: versions.log4j
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+    implementation group: 'org.assertj', name: 'assertj-core', version: '3.26.3'
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versions.junit
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: versions.junit
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: versions.junit
+    implementation group: 'org.junit.platform', name: 'junit-platform-commons', version: versions.junitPlatform
+    implementation group: 'org.junit.platform', name: 'junit-platform-engine', version: versions.junitPlatform
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '4.1.5'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.1.4'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
@@ -190,105 +186,15 @@ dependencies {
     smokeTestCompileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
     smokeTestAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 
-    testImplementation("org.hamcrest:hamcrest-junit:2.0.0.0") {
-        exclude group: "org.hamcrest", module: "hamcrest-core"
-        exclude group: "org.hamcrest", module: "hamcrest-library"
-    }
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.14.2'
+    testImplementation group: 'org.mockito', name: 'mockito-inline', version: '5.2.0'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.2.4'
-    testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.1.0'
-    testImplementation group: 'org.powermock', name: 'powermock-api-mockito2', version: '2.0.4'
-    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springBoot
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: versions.springBoot
-
-
-    testImplementation(group: 'org.yaml', name: 'snakeyaml', version: '1.23') {
-        force = true
-    }
-    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json', version: versions.springBoot
-    implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.5.6'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: versions.springBoot
-    implementation group: 'com.github.mifmif', name: 'generex', version: '1.0.1'
-    implementation(group: 'net.serenity-bdd', name: 'serenity-core', version: '3.0.2')
-
-    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: '1.6.20'
-    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-common', version: '1.6.20'
-    implementation (group: 'net.serenity-bdd', name: 'serenity-spring', version: '3.0.2')
-    implementation (group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity)
-    implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', version: versions.launchDarklySdk
-    implementation 'com.github.hmcts:service-auth-provider-java-client:4.0.3'
-
-    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
-    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
-    implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.6.2'
-
-    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versions.junit
-    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: versions.junit
-    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: versions.junit
-    implementation group: 'org.junit.platform', name: 'junit-platform-commons', version: versions.junitPlatform
-    implementation group: 'org.junit.platform', name: 'junit-platform-engine', version: versions.junitPlatform
-    implementation group: 'com.jhlabs', name: 'filters', version: '2.0.235-1'
-
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: versions.log4j
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: versions.log4j
-    implementation group: 'org.apache.logging.log4j', name: 'log4j', version: versions.log4j
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: versions.log4j
-
-    implementation 'com.github.hmcts:idam-java-client:2.0.1'
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.0.2'
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-hystrix', version: versions.springHystrix// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.1'
-    // https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.18'
-
-    implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.10'
-    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
-
-    implementation group: 'org.springframework', name: 'spring-aop', version: versions.springVersion
-    implementation group: 'org.springframework', name: 'spring-aspects', version: versions.springVersion
-    implementation group: 'org.springframework', name: 'spring-context', version: versions.springVersion
-    implementation group: 'org.springframework', name: 'spring-context-support', version: versions.springVersion
-    implementation group: 'org.springframework', name: 'spring-expression', version: versions.springVersion
-    implementation group: 'org.springframework', name: 'spring-jcl', version: versions.springVersion
-    implementation group: 'org.springframework', name: 'spring-jdbc', version: versions.springVersion
-    implementation group: 'org.springframework', name: 'spring-orm', version: versions.springVersion
-    implementation group: 'org.springframework', name: 'spring-tx', version: versions.springVersion
-    implementation group: 'org.springframework', name: 'spring-web', version: versions.springVersion
-    implementation group: 'org.springframework', name: 'spring-webmvc', version: versions.springVersion
-    implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.21'
-    // https://mvnrepository.com/artifact/org.springframework/spring-test
-   implementation group: 'org.springframework', name: 'spring-test', version: '5.3.18'
-    testImplementation 'com.github.hmcts:fortify-client:1.2.0:all'
-    implementation 'commons-io:commons-io:2.11.0'
-    implementation "io.github.openfeign:feign-httpclient:11.0"
-
-    implementation group: 'com.google.guava', name: 'guava', version: '30.1-jre'
-
-    implementation group: 'io.github.openfeign.form', name: 'feign-form', version: versions.feign
-    implementation group: 'io.github.openfeign.form', name: 'feign-form-spring', version: versions.feign
-
-    functionalTestImplementation(group: 'org.yaml', name: 'snakeyaml', version: '1.23') {
-        force = true
-    }
+    testImplementation 'com.github.hmcts:fortify-client:1.4.5:all'
 
     functionalTestImplementation sourceSets.main.runtimeClasspath
     functionalTestImplementation sourceSets.test.runtimeClasspath
-
 }
-
-dependencyManagement {
-
-    dependencies {
-        // CVE-2021-42340
-        dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.58') {
-            entry 'tomcat-embed-core'
-            entry 'tomcat-embed-el'
-            entry 'tomcat-embed-websocket'
-        }
-    }
-}
-
 
 dependencyCheck {
     suppressionFile = 'config/owasp/suppressions.xml'
@@ -310,19 +216,29 @@ gradle.startParameter.continueOnFailure = true
 
 bootJar {
     enabled = false
+    archiveClassifier = 'boot'
 }
 
 jar {
     enabled = true
+    archiveClassifier = ''
+    manifest {
+        attributes 'Implementation-Title': project.name, 'Implementation-Version': project.version
+    }
 }
 
+distTar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
 
-// this is required to force Java running on the Azure Windows Server OS into using
-// UTF-8 as the default character set instead of windows-1252 which causes issues.
-// this setting only applies when running via gradle bootRun -- see web.config for the
-// java flag that configures the deployed applications
-applicationDefaultJvmArgs = ["-Dfile.encoding=UTF-8"]
+distZip {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
 
 test {
     useJUnitPlatform()
+}
+
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
 }
