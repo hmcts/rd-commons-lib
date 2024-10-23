@@ -13,8 +13,8 @@ plugins {
 }
 
 def versions = [
-        junit              : '5.10.0',
-        junitPlatform      : '1.10.0',
+        junit              : '5.10.5',
+        junitPlatform      : '1.10.5',
         launchDarklySdk    : '5.2.2',
         log4j              : '2.24.1',
         logback            : '1.5.11',
