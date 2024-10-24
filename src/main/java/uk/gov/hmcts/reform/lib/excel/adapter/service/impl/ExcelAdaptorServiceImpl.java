@@ -1,27 +1,5 @@
 package uk.gov.hmcts.reform.lib.excel.adapter.service.impl;
 
-import static io.micrometer.core.instrument.util.StringUtils.isNotEmpty;
-import static java.lang.String.format;
-import static java.util.Arrays.asList;
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
-import static java.util.Optional.empty;
-import static java.util.Optional.ofNullable;
-import static org.apache.commons.lang.BooleanUtils.isNotTrue;
-import static org.apache.poi.ss.usermodel.DateUtil.getLocalDateTime;
-import static org.apache.poi.ss.usermodel.DateUtil.isCellDateFormatted;
-import static org.springframework.core.annotation.AnnotationUtils.findAnnotation;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.util.ReflectionUtils.makeAccessible;
-import static org.springframework.util.ReflectionUtils.setField;
-import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.DELIMITER_COMMA;
-import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.ERROR_FILE_PARSING_ERROR_MESSAGE;
-import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.ERROR_PARSING_EXCEL_CELL_ERROR_MESSAGE;
-import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.FILE_MISSING_HEADERS;
-import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.FILE_NO_DATA_ERROR_MESSAGE;
-import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.FILE_NO_VALID_SHEET_ERROR_MESSAGE;
-import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.IS_PRIMARY_FIELD;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Triple;
 import org.apache.poi.ss.usermodel.Cell;
@@ -37,6 +15,7 @@ import uk.gov.hmcts.reform.lib.excel.adapter.service.ExcelAdapterService;
 import uk.gov.hmcts.reform.lib.exception.ExcelValidationException;
 import uk.gov.hmcts.reform.lib.util.MappingField;
 import uk.gov.hmcts.reform.lib.validator.service.IValidationService;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +25,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+
+import static java.lang.String.format;
+import static java.util.Arrays.asList;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+import static java.util.Optional.empty;
+import static java.util.Optional.ofNullable;
+import static org.apache.commons.lang3.BooleanUtils.isNotTrue;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.apache.poi.ss.usermodel.DateUtil.getLocalDateTime;
+import static org.apache.poi.ss.usermodel.DateUtil.isCellDateFormatted;
+import static org.springframework.core.annotation.AnnotationUtils.findAnnotation;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.util.ReflectionUtils.makeAccessible;
+import static org.springframework.util.ReflectionUtils.setField;
+import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.DELIMITER_COMMA;
+import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.ERROR_FILE_PARSING_ERROR_MESSAGE;
+import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.ERROR_PARSING_EXCEL_CELL_ERROR_MESSAGE;
+import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.FILE_MISSING_HEADERS;
+import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.FILE_NO_DATA_ERROR_MESSAGE;
+import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.FILE_NO_VALID_SHEET_ERROR_MESSAGE;
+import static uk.gov.hmcts.reform.lib.util.ExcelAdapterConstants.IS_PRIMARY_FIELD;
 
 @Service
 @Slf4j

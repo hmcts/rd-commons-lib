@@ -1,7 +1,7 @@
 package uk.gov.hmcts.reform.lib.util.serenity5.extension.page;
 
 import net.thucydides.core.annotations.TestCaseAnnotations;
-import net.thucydides.core.webdriver.Configuration;
+import net.thucydides.model.webdriver.Configuration;
 
 public class TestConfiguration {
 

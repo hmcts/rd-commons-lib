@@ -1,9 +1,9 @@
 package uk.gov.hmcts.reform.lib.util.serenity5.extension.page;
 
-import net.thucydides.core.annotations.ClearCookiesPolicy;
-import net.thucydides.core.annotations.Fields;
+import net.serenitybdd.annotations.ClearCookiesPolicy;
+import net.serenitybdd.annotations.Fields;
 import net.thucydides.core.annotations.InvalidManagedWebDriverFieldException;
-import net.thucydides.core.annotations.Managed;
+import net.serenitybdd.annotations.Managed;
 import net.thucydides.core.webdriver.WebDriverFacade;
 import org.openqa.selenium.WebDriver;
 

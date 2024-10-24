@@ -1,12 +1,12 @@
 package uk.gov.hmcts.reform.lib.util.serenity5.extension;
 
 import com.google.inject.Key;
-import net.serenitybdd.core.environment.ConfiguredEnvironment;
 import net.serenitybdd.core.injectors.EnvironmentDependencyInjector;
+import net.serenitybdd.model.environment.ConfiguredEnvironment;
 import net.thucydides.core.steps.BaseStepListener;
 import net.thucydides.core.steps.Listeners;
 import net.thucydides.core.steps.StepEventBus;
-import net.thucydides.core.steps.StepListener;
+import net.thucydides.model.steps.StepListener;
 import net.thucydides.junit.listeners.TestCounter;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;

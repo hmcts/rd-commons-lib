@@ -1,19 +1,21 @@
 package uk.gov.hmcts.reform.lib.validator.service.service.impl;
 
-import static org.apache.commons.lang3.BooleanUtils.isNotTrue;
-import javax.annotation.PostConstruct;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import jakarta.annotation.PostConstruct;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.lib.validator.service.IJsrValidatorInitializer;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static org.apache.commons.lang3.BooleanUtils.isNotTrue;
 
 @Component
 @Slf4j
