@@ -25,6 +25,12 @@ def versions = [
 def jarName = 'rd-commons-lib.jar'
 def gitRepo = "https://github.com/hmcts/rd-commons-lib"
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
 def pomConfig = {
     licenses {
         license {
@@ -67,7 +73,7 @@ artifacts {
 
 publishing {
     publications {
-        Main(MavenPublication) {
+        maven(MavenPublication) {
             from components.java
             artifact sourcesJar
             //artifact javadocJar
@@ -218,10 +224,15 @@ gradle.startParameter.continueOnFailure = true
 
 bootJar {
     enabled = false
+    archiveClassifier = 'boot'
 }
 
 jar {
     enabled = true
+    archiveClassifier = ''
+    manifest {
+        attributes 'Implementation-Title': project.name, 'Implementation-Version': project.version
+    }
 }
 
 distTar {
@@ -234,4 +245,8 @@ distZip {
 
 test {
     useJUnitPlatform()
+}
+
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
 }
