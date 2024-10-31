@@ -25,12 +25,6 @@ def versions = [
 def jarName = 'rd-commons-lib.jar'
 def gitRepo = "https://github.com/hmcts/rd-commons-lib"
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
-
 def pomConfig = {
     licenses {
         license {
