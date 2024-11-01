@@ -5,7 +5,6 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import net.serenitybdd.core.di.SerenityInfrastructure;
 import net.thucydides.junit.listeners.TestCountListener;
-import net.thucydides.junit.listeners.TestCounter;
 import net.thucydides.model.statistics.TestCount;
 import net.thucydides.model.steps.StepListener;
 import net.thucydides.model.util.EnvironmentVariables;
@@ -16,7 +15,7 @@ public class JUnit5Module extends AbstractModule {
     @Override
     protected void configure() {
         bind(StepListener.class)
-            .annotatedWith(TestCounter.class)
+            .annotatedWith(TestCounterBinding.class)
             .toProvider(TestCountListenerProvider.class)
             .in(Singleton.class);
     }
