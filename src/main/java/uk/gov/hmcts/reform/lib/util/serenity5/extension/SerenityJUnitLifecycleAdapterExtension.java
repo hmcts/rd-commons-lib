@@ -2,12 +2,12 @@ package uk.gov.hmcts.reform.lib.util.serenity5.extension;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import net.thucydides.core.annotations.Manual;
-import net.thucydides.core.annotations.Pending;
-import net.thucydides.core.model.TestResult;
-import net.thucydides.core.model.TestTag;
+import net.serenitybdd.annotations.Manual;
+import net.serenitybdd.annotations.Pending;
 import net.thucydides.core.steps.StepEventBus;
-import net.thucydides.core.steps.TestSourceType;
+import net.thucydides.model.domain.TestResult;
+import net.thucydides.model.domain.TestTag;
+import net.thucydides.model.steps.TestSourceType;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -17,8 +17,6 @@ import org.opentest4j.TestAbortedException;
 
 import java.lang.reflect.Method;
 import java.util.Optional;
-
-import static java.util.stream.Collectors.toList;
 
 
 public class SerenityJUnitLifecycleAdapterExtension implements BeforeEachCallback, AfterAllCallback, TestWatcher,
@@ -84,7 +82,7 @@ public class SerenityJUnitLifecycleAdapterExtension implements BeforeEachCallbac
         StepEventBus.getEventBus().setTestSource(TestSourceType.TEST_SOURCE_JUNIT.getValue());
         StepEventBus.getEventBus().testStarted(name, extensionContext.getRequiredTestClass());
         StepEventBus.getEventBus().addTagsToCurrentTest(extensionContext.getTags().stream().map(TestTag::withValue)
-                                               .collect(toList()));
+                                               .toList());
     }
 
     private void startTestSuiteForFirstTest(ExtensionContext extensionContext) {

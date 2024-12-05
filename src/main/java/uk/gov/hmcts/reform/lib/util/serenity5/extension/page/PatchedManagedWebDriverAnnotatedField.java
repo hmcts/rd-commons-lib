@@ -1,9 +1,9 @@
 package uk.gov.hmcts.reform.lib.util.serenity5.extension.page;
 
-import net.thucydides.core.annotations.ClearCookiesPolicy;
-import net.thucydides.core.annotations.Fields;
+import net.serenitybdd.annotations.ClearCookiesPolicy;
+import net.serenitybdd.annotations.Fields;
+import net.serenitybdd.annotations.Managed;
 import net.thucydides.core.annotations.InvalidManagedWebDriverFieldException;
-import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.webdriver.WebDriverFacade;
 import org.openqa.selenium.WebDriver;
 
@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class PatchedManagedWebDriverAnnotatedField {
 
@@ -54,7 +53,7 @@ public class PatchedManagedWebDriverAnnotatedField {
             .stream()
             .filter(PatchedManagedWebDriverAnnotatedField::isFieldAnnotated)
             .map(PatchedManagedWebDriverAnnotatedField::new)
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public static boolean hasManagedWebdriverField(final Class<?> testClass) {

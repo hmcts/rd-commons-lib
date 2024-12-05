@@ -48,7 +48,6 @@ public class S2sClient {
 
         assertThat(response.getStatusCode()).isEqualTo(200);
 
-        String jwtToken = response.getBody().asString();
-        return jwtToken;
+        return response.getBody().asString();
     }
 }

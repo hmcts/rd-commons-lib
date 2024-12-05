@@ -1,8 +1,8 @@
 package uk.gov.hmcts.reform.lib.util.serenity5.extension.page;
 
 import com.google.common.base.Preconditions;
-import net.thucydides.core.annotations.DriverOptions;
-import net.thucydides.core.annotations.WithDriver;
+import net.serenitybdd.annotations.DriverOptions;
+import net.serenitybdd.annotations.WithDriver;
 
 import java.lang.reflect.Method;
 import java.util.Optional;
