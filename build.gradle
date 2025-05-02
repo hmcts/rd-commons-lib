@@ -41,7 +41,7 @@ def pomConfig = {
 
 def buildNumber = System.getenv("RELEASE_VERSION")?.replace("refs/tags/", "") ?: "DEV-SNAPSHOT"
 
-group = 'uk.gov.hmcts.reform'
+group = 'com.github.hmcts'
 version = buildNumber
 
 application {
@@ -74,6 +74,16 @@ publishing {
             groupId project.group
             artifactId 'rd-commons-lib'
             version project.version
+        }
+    }
+    repositories {
+        maven {
+            name = "AzureArtifacts"
+            url = uri("https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1")
+            credentials {
+                username = System.getenv("AZURE_DEVOPS_ARTIFACT_USERNAME")
+                password = System.getenv("AZURE_DEVOPS_ARTIFACT_TOKEN")
+            }
         }
     }
 }
@@ -132,9 +142,11 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
+        url 'https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1'
+    }
+    maven {
         url "https://jitpack.io"
     }
-
 }
 
 dependencies {
