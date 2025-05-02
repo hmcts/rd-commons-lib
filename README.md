@@ -25,6 +25,6 @@ repositories {
     }
 }
 dependencies {
-  implementation 'com.github.hmcts:data-ingestion-lib:LATEST_TAG'
+  implementation 'com.github.hmcts:rd-commons-lib:LATEST_TAG'
 }
 ```
