@@ -17,7 +17,7 @@ def versions = [
         junitPlatform      : '1.11.3',
         launchDarklySdk    : '5.2.2',
         log4j              : '2.24.2',
-        logback            : '1.5.12',
+        logback            : '1.5.18',
         lombok             : '1.18.36',
         serenity           : '4.2.9'
 ]
