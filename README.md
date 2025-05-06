@@ -16,7 +16,15 @@ microservices eg. rd-location-ref-api (https://github.com/hmcts/rd-location-ref-
 It can be used in respective projects as gradle dependency like below
 compile group: 'uk.gov.hmcts.reform', name: 'rd-commons-lib', version: '0.0.1'
 
+This library is hosted on Azure DevOps Artifacts and can be used in your project by adding the following to your `build.gradle` file:
 
-
-
-
+```gradle
+repositories {
+    maven {
+        url 'https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1'
+    }
+}
+dependencies {
+  implementation 'com.github.hmcts:rd-commons-lib:LATEST_TAG'
+}
+```
