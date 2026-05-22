@@ -160,7 +160,7 @@ dependencies {
     implementation group: 'com.warrenstrange', name: 'googleauth', version: '1.5.0'
     implementation group: 'commons-io', name: 'commons-io', version: '2.18.0'
     implementation group: 'io.github.openfeign', name: 'feign-httpclient', version: '13.5'
-    implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.1.0'
+    implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.1.1'
     implementation group: 'net.serenity-bdd', name: 'serenity-core', version: versions.serenity
     implementation group: 'net.serenity-bdd', name: 'serenity-rest-assured', version: versions.serenity
     implementation group: 'net.serenity-bdd', name: 'serenity-spring', version: versions.serenity
